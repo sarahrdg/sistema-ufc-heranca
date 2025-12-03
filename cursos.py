@@ -5,7 +5,7 @@ class Curso:
         self.nome_curso = nome_curso
         self.vagas_total = vagas_total
         self.vagas_ocupadas = 0 
-        self.listar_disciplinas = []
+        self.disciplinas_curso = []
 
 def adicionar_curso():
     print("\n==== Adicionar novo Curso ====")
@@ -29,13 +29,29 @@ def listar_cursos_campus():
     print("\n==== Lista de Cursos por Campus ====")
     campus_selecionado = listar_campus()
     if campus_selecionado is None:
-        return 
+        return None
     print(f"Cursos no Campus '{campus_selecionado.nome}':")
     if not campus_selecionado.cursos:
         print("Nenhum curso cadastrado neste campus.")
+        return None
     else:
         for curso in campus_selecionado.cursos:
             print(f"Curso: {curso.nome_curso}, Vagas Totais: {curso.vagas_total}, Vagas Ocupadas: {curso.vagas_ocupadas}")
+        while True:
+                try:
+                    escolha = int(input("\nEscolha o NÚMERO do Curso (ou 0 para cancelar): "))
+                
+                    if escolha == 0:
+                        return None 
+                    
+                    if 1 <= escolha <= len(campus_selecionado.cursos):
+                
+                        curso_selecionado_pelo_usuario = campus_selecionado.cursos[escolha - 1] 
+                        return curso_selecionado_pelo_usuario
+                    else:
+                     print("Opção inválida. Por favor, digite um número da lista ou 0 para cancelar.")
+                except ValueError:
+                    print("Entrada inválida. Por favor, digite um número.")    
 
 
 def editar_curso():
